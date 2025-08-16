@@ -1,0 +1,51 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+    public int goodNodes(TreeNode root) {
+        
+        Queue<Pair<TreeNode, Integer>> q = new LinkedList<>();
+
+        int result = 0;
+
+        if(root!=null){
+            q.offer(new Pair<>(root, Integer.MIN_VALUE));
+        }
+
+        while(!q.isEmpty()){
+
+            Pair<TreeNode, Integer> p = q.poll();
+            TreeNode current = p.getKey();
+            int value = p.getValue();
+
+            if(current.val >= value){
+                result +=1;
+            }
+
+            if(current.left!=null){
+                q.offer(new Pair<>(current.left, Math.max(value, current.val)));
+            }
+
+            
+            if(current.right!=null){
+                q.offer(new Pair<>(current.right, Math.max(value, current.val)));
+            }
+            
+
+        }
+        return result;
+    }
+}
