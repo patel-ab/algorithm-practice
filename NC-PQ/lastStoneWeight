@@ -1,0 +1,30 @@
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+
+        PriorityQueue<Integer> heap = new PriorityQueue<>(Collections.reverseOrder());
+
+        for(int i : stones){
+            heap.offer(i);
+        }
+
+        while(heap.size()>1){
+
+            int first = heap.poll();
+            int second = heap.poll();
+
+            if(first == second) continue;
+
+            if(first > second){
+                heap.offer(first-second);
+            }
+            else{
+                heap.offer(second-first);
+            }
+
+        }
+        if (heap.size() ==1) return heap.peek();
+    else return 0;
+        
+    }
+    
+}
